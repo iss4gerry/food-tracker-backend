@@ -1,10 +1,11 @@
-const prisma = require('../prisma/index')
 const app = require('./app')
-
-const port = 4000
+const port = 3000
+const prisma = require('../prisma/index')
 
 if(prisma){
+    console.log('connected to database')
     app.listen(port, () => {
-        console.log(`Listening to port ${port}`)
+        console.log(`listening to port ${port}`)
     })
 }
+
