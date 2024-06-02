@@ -6,6 +6,8 @@ const foodController = require('../controllers/food-controllers')
 router
     .route('/').get(foodController.getFood).post(foodController.calorieTracker)
 
+router.route('/image').post(foodController.imageTracker).get(foodController.getFood)
+
 module.exports = router
 
 

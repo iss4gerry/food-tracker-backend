@@ -16,7 +16,18 @@ const calorieTracker = catchAsync(async (req, res) => {
     })
 })
 
+const imageTracker = catchAsync(async (req, res) => {
+    const result = await foodService.imageTracker(req.body)
+
+    res.status(httpStatus.OK).send({
+        status: httpStatus.OK,
+        message: 'Success',
+        data: result
+    })
+})
+
 module.exports = { 
     getFood, 
-    calorieTracker 
+    calorieTracker,
+    imageTracker
 }
