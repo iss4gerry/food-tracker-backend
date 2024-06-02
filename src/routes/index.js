@@ -4,10 +4,10 @@ const authRouter = require('./auth-route')
 const foodRoute = require('./food-route')
 
 const defaultRoutes = [
-    // {
-    //     path: '/auth',
-    //     route: authRouter,
-    // },
+    {
+        path: '/auth',
+        route: authRouter,
+    },
     {
         path: '/food',
         route: foodRoute
