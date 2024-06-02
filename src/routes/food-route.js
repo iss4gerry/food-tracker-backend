@@ -4,10 +4,11 @@ const auth  = require('../middlewares/auth')
 const foodController = require('../controllers/food-controllers')
 
 router
-    .route('/').post(foodController.imageTracker)
+    .route('/').post(auth.verifyToken, foodController.imageTracker)
 
 router
-    .route('/history').get(foodController.getFood)
+    .route('/history').get(auth.verifyToken, foodController.getFood)
+    
 module.exports = router
 
 
