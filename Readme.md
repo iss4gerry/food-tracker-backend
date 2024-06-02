@@ -1,0 +1,1 @@
+# Food Tracker Using Express, Gemini API, Prisma, MYSQL
