@@ -6,6 +6,6 @@ router
     .route('/').get(profileController.getProfile).post(profileController.createProfile)
 
 router
-    .route('/:userId').get(profileController.getProfileById)
+    .route('/:profilId').get(profileController.getProfileById)
 
 module.exports = router
