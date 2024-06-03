@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const authRouter = require('./auth-route')
 const foodRoute = require('./food-route')
+const profileRoute = require('./profile-route')
 
 const defaultRoutes = [
     {
@@ -11,6 +12,10 @@ const defaultRoutes = [
     {
         path: '/food',
         route: foodRoute
+    },
+    {
+        path: '/profile',
+        route: profileRoute
     }
 ]
 
