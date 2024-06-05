@@ -7,7 +7,7 @@ const getFood = catchAsync(async (req, res) =>{
 })
 
 const calorieTracker = catchAsync(async (req, res) => {
-    const result = await foodService.calorieTracker(req.body.text)
+    const result = await foodService.calorieTracker(req.body)
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,

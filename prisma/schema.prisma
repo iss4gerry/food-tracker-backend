@@ -32,10 +32,12 @@ model UserProfile {
   id              String        @id @default(uuid())
   userId          String        @unique
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  dateOfBirth     DateTime
+  gender          String
+  dateOfBirth     String
   diseases        String?        
   allergies       String?       
   weight          Float
+  height          Float
   lastUpdated     DateTime      @updatedAt 
 }
 
@@ -53,6 +55,6 @@ model CalorieHistory {
   userId          String
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   calorie         Int
-  date            DateTime     @default(now())
+  date            DateTime     @default(now())        
 }
 

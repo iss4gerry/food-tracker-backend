@@ -31,7 +31,6 @@
     "http-status": "^1.7.4",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
-    "node-fetch": "^3.3.2",
     "prisma": "^5.14.0"
   },
   "devDependencies": {

@@ -1,9 +1,9 @@
 const httpStatus = require('http-status')
 const catchAsync = require('../utils/catchAsync')
-const profilService = require('../services/profile-service')
+const profileService = require('../services/profile-service')
 
 const getProfile = catchAsync(async (req, res) => {
-    const result = await profilService.getProfile()
+    const result = await profileService.getProfile()
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,
@@ -13,7 +13,7 @@ const getProfile = catchAsync(async (req, res) => {
 })
 
 const createProfile = catchAsync(async (req, res) => {
-    const result = await profilService.createProfile(req.body)
+    const result = await profileService.createProfile(req.body)
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,
@@ -23,7 +23,7 @@ const createProfile = catchAsync(async (req, res) => {
 })
 
 const getProfileById = catchAsync(async (req, res) => {
-    const result = await profilService.getProfileById(req.params.profilId)
+    const result = await profileService.getProfileById(req.params.profilId)
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,

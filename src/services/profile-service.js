@@ -8,7 +8,7 @@ const getProfile = async () => {
     return result
 }
 
-const createProfil = async (userBody) => {
+const createProfile = async (userBody) => {
     const result = await prisma.userProfile.create({
         data: userBody
     })
@@ -30,6 +30,6 @@ const getProfileById = async (userId) => {
 
 module.exports = {
     getProfile,
-    createProfil,
+    createProfile,
     getProfileById
 }
