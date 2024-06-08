@@ -14,47 +14,55 @@ datasource db {
 }
 
 model User {
-  id              String       @id @default(uuid())
-  name            String
-  email           String?      @unique
-  password        String    
-  role            String       @default("user")
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  isEmailVerified Boolean      @default(false)
-  calories        Calorie?
-  profile         UserProfile? 
-  calorieHistory  CalorieHistory[]
+  id                String       @id @default(uuid())
+  name              String
+  email             String?      @unique
+  password          String    
+  role              String       @default("user")
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  isEmailVerified   Boolean      @default(false)
+  profile           UserProfile?
+  nutrition         Nutrition? 
+  history           History[]
 }
-
 
 model UserProfile {
-  id              String        @id @default(uuid())
-  userId          String        @unique
-  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  gender          String
-  dateOfBirth     String
-  diseases        String?        
-  allergies       String?       
-  weight          Float
-  height          Float
-  lastUpdated     DateTime      @updatedAt 
+  id                String        @id @default(uuid())
+  userId            String        @unique
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gender            String
+  dateOfBirth       String       
+  allergies         String?       
+  weight            Float
+  height            Float
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt 
 }
 
-
-model Calorie {
-  id              String       @id @default(uuid())
-  userId          String       @unique
-  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)   
-  dailyCalorie    Int
-  updatedAt       DateTime     @updatedAt
+model Nutrition {
+  id                String       @id @default(uuid())
+  userId            String       @unique
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)   
+  dailyCalorie      Float
+  dailyCarbohydrate Float
+  dailySugar        Float
+  dailyFat          Float
+  dailyProtein      Float
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
 }
 
-model CalorieHistory {
-  id              String       @id @default(uuid())
-  userId          String
-  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  calorie         Int
-  date            DateTime     @default(now())        
+model History {
+  id                     String       @id @default(uuid())
+  userId                 String
+  user                   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dailyCalorie           Float
+  dailyCarbohydrate      Float
+  dailySugar             Float
+  dailyFat               Float
+  dailyProtein           Float
+  date                   DateTime     @default(now())
 }
+
 
