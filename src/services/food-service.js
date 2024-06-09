@@ -9,41 +9,40 @@ const apiKey = 'AIzaSyB-PK8sGS-wximsCuYSAkFwPTfmPsirGZk'
 const genAI = new GoogleGenerativeAI(apiKey)
 
 const calorieTracker = async (body) => {
-    // const nutrition = await prisma.nutrition.findFirst({
-    //     where: { userId: userId.userId}
-    // })
 
-    // const update = parseDateString(nutrition.updatedAt)
-    // const today = parseDateString(new Date())
-    // if(update.toISOString() !== today.toISOString()){
-    //     const userProfile = await prisma.userProfile.findFirst({
-    //         where: { userId: userId.userId}
-    //     })
+    const userId = {
+        userId: "7c143809-047a-4dba-9cea-67a023b4c4e3"
+    }
 
-    //     const { dateOfBirth, gender, weight, height } = userProfile
-    //     const age = calculateAge(dateOfBirth)
-    //     const calories = calculateCalories(gender, weight, height, age)
+    const nutrition = await prisma.nutrition.findFirst({
+        where: { userId: userId.userId}
+    })
 
-    //     await prisma.nutrition.update({
-    //         where: {
-    //             userId: userId.userId
-    //         },
-    //         data: {
-    //             dailyCalorie: calories,
-    //             dailyCarbohydrate: 0.15 * calories,
-    //             dailySugar: 50,
-    //             dailyFat: 0.2 * calories,
-    //             dailyProtein: weight * 0.8
-    //         }
-    //     })
-    // }
+    const update = parseDateString(nutrition.updatedAt)
+    const today = parseDateString(new Date())
+    if(update.toISOString() !== today.toISOString()){
+        const userProfile = await prisma.userProfile.findFirst({
+            where: { userId: userId.userId}
+        })
 
+        const { dateOfBirth, gender, weight, height } = userProfile
+        const age = calculateAge(dateOfBirth)
+        const calories = calculateCalories(gender, weight, height, age)
 
-    // const recentNutrition = await prisma.nutrition.findFirst({
-    //     where: {
-    //         userId: userId.userId
-    //     }
-    // })
+        await prisma.nutrition.update({
+            where: {
+                userId: userId.userId
+            },
+            data: {
+                dailyCalorie: calories,
+                dailyCarbohydrate: 0.15 * calories,
+                dailySugar: 50,
+                dailyFat: 0.2 * calories,
+                dailyProtein: weight * 0.8
+            }
+        })
+    }
+
     const data = {
         inlineData: body.image
     }
@@ -73,21 +72,34 @@ const calorieTracker = async (body) => {
             protein
         }
 
-        return foodInfo
 
-    // const { dailyCalorie, dailyCarbohydrate, dailyFat, dailyProtein, dailySugar } = recentNutrition
+    const recentNutrition = await prisma.nutrition.findFirst({
+        where: {
+            userId: userId.userId
+        }
+    })
 
-    // const updateNutrition = await prisma.nutrition.update({
-    //     where: {
-    //         userId: userId.userId
-    //     },
-    //     data: {
-    //         dailyCalorie: dailyCalorie
-    //     }
-    // })
+    const { dailyCalorie, dailyCarbohydrate, dailyFat, dailyProtein, dailySugar } = recentNutrition
 
-    // return updateNutrition
+    const updateNutrition = await prisma.nutrition.update({
+        where: {
+            userId: userId.userId
+        },
+        data: {
+            dailyCalorie: dailyCalorie - calorie,
+            dailyCarbohydrate: dailyCarbohydrate - carbohydrate,
+            dailyFat: dailyFat - fat,
+            dailyProtein: dailyProtein - protein,
+            dailySugar: dailySugar - sugar
+        }
+    })
 
+    const resultData = {
+        foodInfo: foodInfo,
+        dailyNutritionLeft: updateNutrition
+    }
+
+    return resultData
 }
 
 const imageTracker = async (body) => {
