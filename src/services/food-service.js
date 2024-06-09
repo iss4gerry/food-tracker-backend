@@ -46,18 +46,9 @@ const calorieTracker = async (body) => {
     // })
     const data = {
         inlineData: body.image
-    };
-    // const prompt = `
-    // Berdasarkan analisis gambar analisis nilai dibawah ini dengan nilai fix(tidak boleh memakai rentang), 
-    // - Nama makanan: {food_name} 
-    // - Kandungan kalori: {calorie_count} (kalori)
-    // - Kandungan gula: {sugar_content_grams} (gram)
-    // - Kandungan karbohidrat: {carbohydrate_content_grams} (gram)
-    // - Kandungan lemak: {fat_content} (gram)
-    // - Kandungan protein: {protein_content_grams} (gram)
-    // `
-
-    const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini dengan nilai fix(tidak boleh memakai rentang) dan tidak pakai satuan (gram, kkal dll) hanya angkanya saja, kirim response dalam format json dibawah ini
+    }
+    
+    const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll), kirim response dalam format json dibawah ini
     {
         "foodName": "{food_name}",
         "calorie": "{calorie_count_kkal}",
