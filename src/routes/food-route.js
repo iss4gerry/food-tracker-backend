@@ -7,7 +7,7 @@ router
     .route('/').post(foodController.imageTracker)
 
 router
-    .route('/calorie').get(foodController.getFood).post(foodController.calorieTracker)
+    .route('/calorie').get(foodController.getFood).put(foodController.calorieTracker)
     
 module.exports = router
 
