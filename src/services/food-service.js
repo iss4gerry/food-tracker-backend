@@ -41,6 +41,7 @@ const calorieTracker = async (body) => {
                 dailyProtein: weight * 0.8
             }
         })
+
     }
 
     const data = {
