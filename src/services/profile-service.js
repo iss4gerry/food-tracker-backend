@@ -62,6 +62,9 @@ const getProfileById = async (userId) => {
 }
 
 const updateProfile = async (userId, data) => {
+
+    await getProfileById(userId)
+
     const updateUser = await prisma.userProfile.update({
         where: {
             userId: userId
