@@ -196,7 +196,37 @@ base64Image       (string, required)
   }
 }
 ```
-
+**Update Profile -> PATCH /profile/**
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "data": {
+    "updatedProfile": {
+      "id": "a4badde0-4a9b-4466-a9d4-38208d4d08b5",
+      "userId": "ea64b167-325b-49ed-9fea-fc920a1e7e74",
+      "gender": "female",
+      "dateOfBirth": "2003-12-20",
+      "allergies": null,
+      "weight": 80,
+      "height": 171,
+      "createdAt": "2024-06-14T08:20:15.059Z",
+      "updatedAt": "2024-06-14T08:51:23.697Z"
+    },
+    "newNutrition": {
+      "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
+      "userId": "ea64b167-325b-49ed-9fea-fc920a1e7e74",
+      "dailyCalorie": 1642.97,
+      "dailyCarbohydrate": 246.4455,
+      "dailySugar": 50,
+      "dailyFat": 328.5940000000001,
+      "dailyProtein": 64,
+      "createdAt": "2024-06-14T08:20:16.342Z",
+      "updatedAt": "2024-06-14T08:51:24.574Z"
+    }
+  }
+}
+```
 **Post Image -> POST /food/calorie**
 ```JSON
 {
