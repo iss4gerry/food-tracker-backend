@@ -37,8 +37,7 @@ const login = async (email, password, res) => {
 
 
     const token = tokenService.generateToken(user)
-     
-    res.json({token})
+    
     return user 
 }
 

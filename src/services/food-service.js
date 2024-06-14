@@ -100,6 +100,7 @@ const calorieTracker = async (body) => {
         dailyNutritionLeft: updateNutrition,
     }
 
+    console.log(resultData)
     return resultData
 }
 
