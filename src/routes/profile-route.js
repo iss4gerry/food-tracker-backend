@@ -6,6 +6,6 @@ router
     .route('/').get(profileController.getProfile).post(profileController.createProfile)
 
 router
-    .route('/:profilId').get(profileController.getProfileById)
+    .route('/:profileId').get(profileController.getProfileById).patch(profileController.updateProfile)
 
 module.exports = router

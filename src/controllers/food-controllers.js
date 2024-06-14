@@ -26,6 +26,7 @@ const imageTracker = catchAsync(async (req, res) => {
     })
 })
 
+
 module.exports = { 
     getFood, 
     calorieTracker,

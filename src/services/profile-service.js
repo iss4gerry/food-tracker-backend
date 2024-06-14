@@ -51,7 +51,7 @@ const createProfile = async (userBody) => {
 
 const getProfileById = async (userId) => {
     const result = await prisma.userProfile.findFirst({
-        where: { id: userId }
+        where: { userId: userId }
     })
 
     if(!result){
@@ -61,8 +61,48 @@ const getProfileById = async (userId) => {
     return result
 }
 
+const updateProfile = async (userId, data) => {
+    const updateUser = await prisma.userProfile.update({
+        where: {
+            userId: userId
+        },
+        data: data 
+    })
+
+    if(updateUser){
+        const age = calculateAge(data.dateOfBirth)
+        const calories = calculateCalories(data.gender, data.weight, data.height, age)
+        const proteins = data.weight * 0.8
+        const fat = 0.2 * calories
+        const carbohydrate = (0.6 * calories)/4
+        const sugar = 50
+
+        const newNutrition = await prisma.nutrition.update({
+            where: {
+                userId: userId
+            },
+            data : {
+                userId: userId,
+                dailyCalorie: calories,
+                dailyCarbohydrate: carbohydrate,
+                dailySugar: sugar,
+                dailyFat: fat,
+                dailyProtein: proteins
+            }
+        })
+        const result = {
+            updatedProfile: updateUser,
+            newNutrition: newNutrition
+        }
+
+        return result
+    }
+
+}
+
 module.exports = {
     getProfile,
     createProfile,
-    getProfileById
+    getProfileById,
+    updateProfile
 }

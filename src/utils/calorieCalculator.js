@@ -1,6 +1,5 @@
 const calculateCalories = (gender, weight, height, age) => {
     let calories
-  
     if (gender === 'male') {
       calories = 66.5 + (13.75 * weight) + (5.003 * height) - (6.75 * age)
     } else if (gender === 'female') {
