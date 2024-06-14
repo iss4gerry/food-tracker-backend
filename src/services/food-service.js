@@ -128,7 +128,19 @@ const imageTracker = async (body) => {
     return text
 }
 
+const getAllHistory = async () => {
+    return await prisma.history.findMany()
+}
+
+const getHistoryByUserId = async (userId) => {
+    return await prisma.history.findMany({
+        where: { userId: userId }
+    })
+}
+
 module.exports = {
     calorieTracker,
-    imageTracker
+    imageTracker,
+    getAllHistory,
+    getHistoryByUserId
 }

@@ -26,9 +26,30 @@ const imageTracker = catchAsync(async (req, res) => {
     })
 })
 
+const getAllHistory = catchAsync(async (req, res) => {
+    const result = await foodService.getAllHistory()
+
+    res.status(httpStatus.OK).send({
+        status: httpStatus.OK,
+        message: 'Success',
+        data: result
+    })
+})
+
+const getHistoryByUserId = catchAsync(async (req, res) => {
+    const result = await foodService.getHistoryByUserId(req.params.userId)
+
+    res.status(httpStatus.OK).send({
+        status: httpStatus.OK,
+        message: 'Success',
+        data: result
+    })
+})
 
 module.exports = { 
     getFood, 
     calorieTracker,
-    imageTracker
+    imageTracker,
+    getAllHistory,
+    getHistoryByUserId
 }
