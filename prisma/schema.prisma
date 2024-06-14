@@ -57,11 +57,12 @@ model History {
   id                     String       @id @default(uuid())
   userId                 String
   user                   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  dailyCalorie           Float
-  dailyCarbohydrate      Float
-  dailySugar             Float
-  dailyFat               Float
-  dailyProtein           Float
+  foodName               String
+  todalCalorie           Float
+  totalCarbohydrate      Float
+  totalSugar             Float
+  totalFat               Float
+  totalProtein           Float
   date                   DateTime     @default(now())
 }
 

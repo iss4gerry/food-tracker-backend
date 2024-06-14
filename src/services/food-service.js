@@ -73,6 +73,17 @@ const calorieTracker = async (body) => {
             protein
         }
 
+        await prisma.history.create({
+            data: {
+                userId: userId.userId,
+                foodName: foodName,
+                todalCalorie: calorie,
+                totalCarbohydrate: carbohydrate,
+                totalFat: fat,
+                totalProtein: protein,
+                totalSugar: sugar
+            }
+        })
 
     const recentNutrition = await prisma.nutrition.findFirst({
         where: {
