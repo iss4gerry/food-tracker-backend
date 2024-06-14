@@ -221,14 +221,5 @@ base64Image       (string, required)
   }
 }
 ```
-**- Function to convert file to base64** \
-async function fileToBase64(file) { 
-  return new Promise((resolve, reject) => { 
-    const reader = new FileReader(); 
-    .onloadend = () => resolve(reader.result.split(',')[1]); 
-    .onerror = reject; 
-    reader.readAsDataURL(file); 
-    }); 
-    }
-  \
+
 
