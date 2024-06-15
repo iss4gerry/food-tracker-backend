@@ -58,7 +58,8 @@ Delete Profile By ID         : `DELETE profile/:profileId`\
 
 **- Food Route** \
 Calorie Tracker              : `POST /food/calorie`\
-
+Get History                  : `GET /food/history/`\
+Get User History             : `GET /food/history/:userId`\
 
 ## Input in Each Route
 **- Login Route**
@@ -178,7 +179,7 @@ base64Image       (string, required)
   ]
 }
 ```
-**Get Profile By ID -> GET /profile/:profileId**
+**Get Profile By ID -> GET /profile/:userId**
 ```JSON
 {
   "status": 200,
