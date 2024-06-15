@@ -24,7 +24,7 @@ User Login : `POST /auth/login`
 
 Calorie Tracker : `POST /food/calorie`
 Your payload must be like this : {
-    image: {
+    inlineData: {
       data: imageBase64,
       mimeType: imageFile.type
     }
