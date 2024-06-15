@@ -42,9 +42,6 @@ const calorieTracker = async (body) => {
 
     }
 
-    const data = {
-        inlineData: body.image
-    }
     
     const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll), kirim response dalam format json dibawah ini
     {
@@ -56,8 +53,9 @@ const calorieTracker = async (body) => {
         "protein": "{protein_content_grams}"
     }
     ` 
+    console.log([prompt, body])
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" })
-        const result = await model.generateContent([prompt, data])
+        const result = await model.generateContent([prompt, body])
         const response = await result.response
         const responseJson = await response.text()
 
