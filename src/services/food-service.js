@@ -11,9 +11,41 @@ const genAI = new GoogleGenerativeAI(apiKey)
 const calorieTracker = async (body) => {
     try {
         
-        const image = body.base64Image
+        const userId = "ea64b167-325b-49ed-9fea-fc920a1e7e74"
+
+        const nutrition = await prisma.nutrition.findFirst({
+            where: { userId: userId }
+        }) 
+    
+        const update = parseDateString(nutrition.updatedAt)
+        const today = parseDateString(new Date())
+    
+        if(update.toISOString() !== today.toISOString()){
+            const userProfile = await prisma.userProfile.findFirst({
+                where: { userId: userId}
+            })
+    
+            const { dateOfBirth, gender, weight, height } = userProfile
+            const age = calculateAge(dateOfBirth)
+            const calories = calculateCalories(gender, weight, height, age)
+    
+            await prisma.nutrition.update({
+                where: {
+                    userId: userId
+                },
+                data: {
+                    dailyCalorie: calories,
+                    dailyCarbohydrate: 0.15 * calories,
+                    dailySugar: 50,
+                    dailyFat: 0.2 * calories,
+                    dailyProtein: weight * 0.8
+                }
+            })
+        }
+
+        const { base64Image } = body
         const inlineData = {
-            data: image,
+            data: base64Image,
             mimeType: 'image/jpeg'
         }
         
@@ -21,7 +53,6 @@ const calorieTracker = async (body) => {
             inlineData
         }
 
-        const userId = "ea64b167-325b-49ed-9fea-fc920a1e7e74"
         const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll), kirim response dalam format json dibawah ini
         {
             "foodName": "{food_name}",
@@ -84,7 +115,7 @@ const calorieTracker = async (body) => {
                     foodInfo: foodInfo,
                     dailyNutritionLeft: updateNutrition,
                 }
-                
+
                 return resultData
             }
         } catch (error) {
