@@ -23,12 +23,12 @@ User Login : `POST /auth/login`
 ### FOOD Route
 
 Calorie Tracker : `POST /food/calorie`
-Your payload must be like this : {
-    inlineData: {
-      data: imageBase64,
-      mimeType: imageFile.type
-    }
+Your payload must be like this : 
+  {
+      base64Image: imageBase64,
   }
+
+Daily Calorie Left : `GET /food/calorie/:userId`
 
 
 
@@ -228,29 +228,41 @@ base64Image       (string, required)
   }
 }
 ```
-**Post Image -> POST /food/calorie**
+**Image Tracker -> PUT /food/calorie**
 ```JSON
 {
-  "foodInfo": {
-    "foodName": "Nasi Padang",
-    "calorie": 775,
-    "sugar": 35,
-    "carbohydrate": 105,
-    "fat": 45,
-    "protein": 35
-  },
-  "dailyNutritionLeft": {
-    "id": "a9775b79-adb9-4427-beaa-2b1d9ba22160",    
-    "userId": "7c143809-047a-4dba-9cea-67a023b4c4e3",
-    "dailyCalorie": -758.24,
-    "dailyCarbohydrate": -108.136,
-    "dailySugar": -66,
-    "dailyFat": 194.152,
-    "dailyProtein": -81.4,
-    "createdAt": "2024-06-08T10:33:04.000Z",
-    "updatedAt": "2024-06-14T04:55:49.408Z"
+      "foodInfo": {
+          "foodName": "Salad Sayuran",
+          "calorie": 124,
+          "sugar": 3,
+          "carbohydrate": 14,
+          "fat": 7,
+          "protein": 9
+      },
+      "totalNutrition": {
+          "totalCalories": 1674.0000000000002,
+          "totalCarbohydrate": 279.00000000000006,
+          "totalProtein": 109,
+          "totalFat": 91.99999999999994,
+          "totalSugar": 68
+      }
   }
-}
 ```
+**Daily Calorie Left -> GET /food/calorie/:userId**
+```JSON
+{
+    "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
+    "userId": "ea64b167-325b-49ed-9fea-fc920a1e7e74",
+    "dailyCalorie": -31.02999999999997,
+    "dailyCarbohydrate": -32.5545,
+    "dailySugar": -18,
+    "dailyFat": 236.5940000000001,
+    "dailyProtein": -45,
+    "createdAt": "2024-06-14T08:20:16.342Z",
+    "updatedAt": "2024-06-16T09:35:12.119Z"
+  }
+```
+
+
 
 
