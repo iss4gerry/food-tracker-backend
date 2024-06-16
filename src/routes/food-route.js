@@ -7,7 +7,10 @@ router
     .route('/').post(foodController.imageTracker)
 
 router
-    .route('/calorie').get(foodController.getFood).put(foodController.calorieTracker)
+    .route('/calorie').get(foodController.getFood).patch(foodController.calorieTracker)
+
+router
+    .route('/calorie/:userId').get(foodController.getDailyNutrition)
 
 router
     .route('/history').get(foodController.getAllHistory)

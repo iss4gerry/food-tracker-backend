@@ -46,10 +46,21 @@ const getHistoryByUserId = catchAsync(async (req, res) => {
     })
 })
 
+const getDailyNutrition = catchAsync(async (req, res) => {
+    const result = await foodService.getDailyNutrition(req.params.userId)
+
+    res.status(httpStatus.OK).send({
+        status: httpStatus.OK,
+        message: 'Success',
+        data: result
+    })
+})
+
 module.exports = { 
     getFood, 
     calorieTracker,
     imageTracker,
     getAllHistory,
-    getHistoryByUserId
+    getHistoryByUserId,
+    getDailyNutrition
 }

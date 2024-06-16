@@ -9,106 +9,88 @@ const apiKey = 'AIzaSyB-PK8sGS-wximsCuYSAkFwPTfmPsirGZk'
 const genAI = new GoogleGenerativeAI(apiKey)
 
 const calorieTracker = async (body) => {
+    try {
+        
+        const image = body.base64Image
+        const inlineData = {
+            data: image,
+            mimeType: 'image/jpeg'
+        }
+        
+        const dataToSend = {
+            inlineData
+        }
 
-    const userId = "ea64b167-325b-49ed-9fea-fc920a1e7e74"
+        const userId = "ea64b167-325b-49ed-9fea-fc920a1e7e74"
+        const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll), kirim response dalam format json dibawah ini
+        {
+            "foodName": "{food_name}",
+            "calorie": "{calorie_count_kkal}",
+            "sugar": " "{sugar_content_grams}",
+            "carbohydrate": "{carbohydrate_content_grams}"
+            "fat": "{fat_content_grams}"
+            "protein": "{protein_content_grams}"
+        }
+        ` 
+        const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" })
+            const result = await model.generateContent([prompt, dataToSend])
+            const response = await result.response
+            const responseJson = await response.text()
 
-    const nutrition = await prisma.nutrition.findFirst({
-        where: { userId: userId}
-    })
+            if(responseJson){
+                const { foodName, calorie, sugar, carbohydrate, fat, protein } = JSON.parse(responseJson)
+                const foodInfo = {
+                    foodName,
+                    calorie,
+                    sugar,
+                    carbohydrate,
+                    fat,
+                    protein
+                }
+            
+                await prisma.history.create({
+                    data: {
+                        userId: userId,
+                        foodName: foodName,
+                        todalCalorie: calorie,
+                        totalCarbohydrate: carbohydrate,
+                        totalFat: fat,
+                        totalProtein: protein,
+                        totalSugar: sugar
+                    }
+                })
 
-    const update = parseDateString(nutrition.updatedAt)
-    const today = parseDateString(new Date())
-    if(update.toISOString() !== today.toISOString()){
-        const userProfile = await prisma.userProfile.findFirst({
-            where: { userId: userId}
-        })
+                const recentNutrition = await prisma.nutrition.findFirst({
+                    where: {
+                        userId: userId
+                    }
+                })
 
-        const { dateOfBirth, gender, weight, height } = userProfile
-        const age = calculateAge(dateOfBirth)
-        const calories = calculateCalories(gender, weight, height, age)
+                const { dailyCalorie, dailyCarbohydrate, dailyFat, dailyProtein, dailySugar } = recentNutrition
+                const updateNutrition = await prisma.nutrition.update({
+                    where: {
+                        userId: userId
+                    },
+                    data: {
+                        dailyCalorie: dailyCalorie - calorie,
+                        dailyCarbohydrate: dailyCarbohydrate - carbohydrate,
+                        dailyFat: dailyFat - fat,
+                        dailyProtein: dailyProtein - protein,
+                        dailySugar: dailySugar - sugar
+                    }
+                })
 
-        await prisma.nutrition.update({
-            where: {
-                userId: userId
-            },
-            data: {
-                dailyCalorie: calories,
-                dailyCarbohydrate: 0.15 * calories,
-                dailySugar: 50,
-                dailyFat: 0.2 * calories,
-                dailyProtein: weight * 0.8
+                const resultData = {
+                    foodInfo: foodInfo,
+                    dailyNutritionLeft: updateNutrition,
+                }
+                
+                return resultData
             }
-        })
-
-    }
-
-    
-    const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll), kirim response dalam format json dibawah ini
-    {
-        "foodName": "{food_name}",
-        "calorie": "{calorie_count_kkal}",
-        "sugar": " "{sugar_content_grams}",
-        "carbohydrate": "{carbohydrate_content_grams}"
-        "fat": "{fat_content_grams}"
-        "protein": "{protein_content_grams}"
-    }
-    ` 
-    console.log([prompt, body])
-    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" })
-        const result = await model.generateContent([prompt, body])
-        const response = await result.response
-        const responseJson = await response.text()
-
-        const { foodName, calorie, sugar, carbohydrate, fat, protein } = JSON.parse(responseJson)
-        const foodInfo = {
-            foodName,
-            calorie,
-            sugar,
-            carbohydrate,
-            fat,
-            protein
+        } catch (error) {
+            throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, error.message)
         }
-
-        await prisma.history.create({
-            data: {
-                userId: userId,
-                foodName: foodName,
-                todalCalorie: calorie,
-                totalCarbohydrate: carbohydrate,
-                totalFat: fat,
-                totalProtein: protein,
-                totalSugar: sugar
-            }
-        })
-
-    const recentNutrition = await prisma.nutrition.findFirst({
-        where: {
-            userId: userId
-        }
-    })
-
-    const { dailyCalorie, dailyCarbohydrate, dailyFat, dailyProtein, dailySugar } = recentNutrition
-
-    const updateNutrition = await prisma.nutrition.update({
-        where: {
-            userId: userId
-        },
-        data: {
-            dailyCalorie: dailyCalorie - calorie,
-            dailyCarbohydrate: dailyCarbohydrate - carbohydrate,
-            dailyFat: dailyFat - fat,
-            dailyProtein: dailyProtein - protein,
-            dailySugar: dailySugar - sugar
-        }
-    })
-
-    const resultData = {
-        foodInfo: foodInfo,
-        dailyNutritionLeft: updateNutrition,
-    }
-
-    console.log(resultData)
-    return resultData
+ 
 }
 
 const imageTracker = async (body) => {
@@ -136,9 +118,52 @@ const getHistoryByUserId = async (userId) => {
     })
 }
 
+const getDailyNutrition = async (userId) => {
+
+    const nutrition = await prisma.nutrition.findFirst({
+        where: { userId: userId }
+    }) 
+
+    const update = parseDateString(nutrition.updatedAt)
+    const today = parseDateString(new Date())
+
+    if(update.toISOString() !== today.toISOString()){
+        const userProfile = await prisma.userProfile.findFirst({
+            where: { userId: userId}
+        })
+
+        const { dateOfBirth, gender, weight, height } = userProfile
+        const age = calculateAge(dateOfBirth)
+        const calories = calculateCalories(gender, weight, height, age)
+
+        await prisma.nutrition.update({
+            where: {
+                userId: userId
+            },
+            data: {
+                dailyCalorie: calories,
+                dailyCarbohydrate: 0.15 * calories,
+                dailySugar: 50,
+                dailyFat: 0.2 * calories,
+                dailyProtein: weight * 0.8
+            }
+        })
+
+        const newNutrition = await prisma.nutrition.findFirst({
+            where: { userId: userId }
+        })
+
+        return newNutrition
+
+    }
+
+    return nutrition
+}
+
 module.exports = {
     calorieTracker,
     imageTracker,
     getAllHistory,
-    getHistoryByUserId
+    getHistoryByUserId,
+    getDailyNutrition
 }
