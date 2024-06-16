@@ -2,10 +2,6 @@ const httpStatus = require('http-status')
 const catchAsync = require("../utils/catchAsync")
 const foodService = require('../services/food-service')
 
-const getFood = catchAsync(async (req, res) =>{
-    res.status(httpStatus.OK).send('On Development')
-})
-
 const calorieTracker = catchAsync(async (req, res) => {
     const result = await foodService.calorieTracker(req.body)
 
@@ -57,7 +53,6 @@ const getDailyNutrition = catchAsync(async (req, res) => {
 })
 
 module.exports = { 
-    getFood, 
     calorieTracker,
     imageTracker,
     getAllHistory,

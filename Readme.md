@@ -15,36 +15,6 @@
 
 ## API End Point
 
-### AUTH Route
-
-User Register : `POST /auth/register`
-User Login : `POST /auth/login`
-
-### FOOD Route
-
-Calorie Tracker : `POST /food/calorie`
-Your payload must be like this : 
-  {
-      base64Image: imageBase64,
-  }
-
-Daily Calorie Left : `GET /food/calorie/:userId`
-
-
-
-## Function to convert file to base64
- async function fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result.split(',')[1]);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-}
-
-# Inventory-System : Express JS, Prisma, MySQL
-
-## API End Point
 **- AUTH Route** \
 User Register: `POST /auth/register`\
 User Login: `POST /auth/login`
@@ -55,11 +25,13 @@ Create Profile               : `POST profile/`\
 Get Profile By ID            : `POST profile/:profileId`\
 Update Profile By ID         : `PATCH profile/:profileId`\
 Delete Profile By ID         : `DELETE profile/:profileId`\
+Get Total Nutrition          : `GET profile/nutrition/:userId`\
 
 **- Food Route** \
-Calorie Tracker              : `POST /food/calorie`\
+Calorie Tracker              : `POST /food/nutrition`\
 Get History                  : `GET /food/history/`\
 Get User History             : `GET /food/history/:userId`\
+Get Daily Nutrition Left     : `GET /food/nutrition/:userId`\
 
 ## Input in Each Route
 **- Login Route**
@@ -85,7 +57,7 @@ weight            Float
 height            Float
 ```
 
-**- Food Calorie Route**
+**- Food Nutrition Route**
 ```
 userId            (string, required)
 base64Image       (string, required)
@@ -228,7 +200,7 @@ base64Image       (string, required)
   }
 }
 ```
-**Image Tracker -> PUT /food/calorie**
+**Image Tracker -> PUT /food/nutrition**
 ```JSON
 {
       "foodInfo": {
@@ -248,7 +220,7 @@ base64Image       (string, required)
       }
   }
 ```
-**Daily Calorie Left -> GET /food/calorie/:userId**
+**Daily Nutrition Left -> GET /food/nutrition/:userId**
 ```JSON
 {
     "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
@@ -262,7 +234,24 @@ base64Image       (string, required)
     "updatedAt": "2024-06-16T09:35:12.119Z"
   }
 ```
-
+**Get Total Nutrition -> GET /food/nutrition/:userId**
+```JSON
+{
+  "status": 200,
+  "message": "Success",
+  "data": {
+    "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
+    "userId": "ea64b167-325b-49ed-9fea-fc920a1e7e74",
+    "dailyCalorie": -31.02999999999997,
+    "dailyCarbohydrate": -32.5545,
+    "dailySugar": -18,
+    "dailyFat": 236.5940000000001,
+    "dailyProtein": -45,
+    "createdAt": "2024-06-14T08:20:16.342Z",
+    "updatedAt": "2024-06-16T09:35:12.119Z"
+  }
+}
+```
 
 
 

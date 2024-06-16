@@ -2,7 +2,7 @@ const httpStatus = require("http-status")
 const prisma = require("../../prisma")
 const ApiError = require("../utils/apiError")
 const { calculateAge } = require('../utils/dateUtils')
-const { calculateCalories } = require('../utils/calorieCalculator')
+const { calculateCalories, calculateDailyNutrition } = require('../utils/calorieCalculator')
 
 const getProfile = async () => {
     const result = await prisma.userProfile.findMany()
@@ -103,9 +103,18 @@ const updateProfile = async (userId, data) => {
 
 }
 
+const getTotalNutrition = async (userId) => {
+    const user = await prisma.userProfile.findFirst({
+        where: { userId: userId }
+    })
+
+    return calculateDailyNutrition(user)
+}
+
 module.exports = {
     getProfile,
     createProfile,
     getProfileById,
-    updateProfile
+    updateProfile,
+    getTotalNutrition
 }
