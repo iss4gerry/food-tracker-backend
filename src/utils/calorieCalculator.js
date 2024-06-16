@@ -1,3 +1,5 @@
+const { calculateAge } = require('./dateUtils')
+
 const calculateCalories = (gender, weight, height, age) => {
     let calories
     if (gender === 'male') {
@@ -11,5 +13,44 @@ const calculateCalories = (gender, weight, height, age) => {
     return calories
   }
   
-  module.exports = { calculateCalories }
+const calculateDailyNutrition = (user) => {
+  const age = calculateAge(user.dateOfBirth)
+  const calories = calculateCalories(user.gender, user.weight, user.height, age)
+  const proteins = user.weight * 0.8
+  const fat = 0.2 * calories
+  const carbohydrate = (0.6 * calories)/4
+  const sugar = 50
+
+  return {
+    calories,
+    proteins, 
+    fat,
+    carbohydrate, 
+    sugar
+  }
+}
+
+const calculateTotalNutrition = (user, nutritionLeft) => {
+  const dailyNutrition = calculateDailyNutrition(user)
+
+  const totalCalories = dailyNutrition.calories - nutritionLeft.dailyCalorie
+  const totalCarbohydrate = dailyNutrition.carbohydrate - nutritionLeft.dailyCarbohydrate
+  const totalProtein = dailyNutrition.proteins - nutritionLeft.dailyProtein
+  const totalFat = dailyNutrition.fat - nutritionLeft.dailyFat
+  const totalSugar = dailyNutrition.sugar - nutritionLeft.dailySugar
+
+  return {
+    totalCalories,
+    totalCarbohydrate,
+    totalProtein,
+    totalFat,
+    totalSugar
+  }
+}
+
+module.exports = { 
+  calculateCalories, 
+  calculateDailyNutrition,
+  calculateTotalNutrition
+}
   

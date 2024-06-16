@@ -1,7 +1,7 @@
 const httpStatus = require("http-status")
 const profileService = require('../services/profile-service')
 const { calculateAge, parseDateString } = require('../utils/dateUtils')
-const { calculateCalories } = require('../utils/calorieCalculator')
+const { calculateCalories, calculateTotalNutrition } = require('../utils/calorieCalculator')
 const prisma = require("../../prisma")
 const ApiError = require("../utils/apiError")
 const { GoogleGenerativeAI } = require('@google/generative-ai')
@@ -53,7 +53,7 @@ const calorieTracker = async (body) => {
             inlineData
         }
 
-        const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll), kirim response dalam format json dibawah ini
+        const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini dengan nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll). Jika ada yang tidak punya nilai isi dengan 0, kirim response dalam format json dibawah ini
         {
             "foodName": "{food_name}",
             "calorie": "{calorie_count_kkal}",
@@ -111,15 +111,19 @@ const calorieTracker = async (body) => {
                     }
                 })
 
+                const userProfile = await prisma.userProfile.findFirst({
+                    where: { userId: userId }
+                })
+
                 const resultData = {
                     foodInfo: foodInfo,
-                    dailyNutritionLeft: updateNutrition,
+                    totalNutrition: calculateTotalNutrition(userProfile, updateNutrition),
                 }
 
                 return resultData
             }
         } catch (error) {
-            throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, error.message)
+            throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error processing your image, Please try again')
         }
  
 }
