@@ -25,10 +25,10 @@ Create Profile               : `POST profile/`\
 Get Profile By ID            : `POST profile/:profileId`\
 Update Profile By ID         : `PATCH profile/:profileId`\
 Delete Profile By ID         : `DELETE profile/:profileId`\
-Get Total Nutrition          : `GET profile/nutrition/:userId`\
+Get Total Nutrition Needed   : `GET profile/nutrition/:userId`\
 
 **- Food Route** \
-Calorie Tracker              : `POST /food/nutrition`\
+Nutrition Tracker            : `POST /food/nutrition`\
 Get History                  : `GET /food/history/`\
 Get User History             : `GET /food/history/:userId`\
 Get Daily Nutrition Left     : `GET /food/nutrition/:userId`\
@@ -237,20 +237,16 @@ base64Image       (string, required)
 **Get Total Nutrition -> GET /food/nutrition/:userId**
 ```JSON
 {
-  "status": 200,
-  "message": "Success",
-  "data": {
     "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
     "userId": "ea64b167-325b-49ed-9fea-fc920a1e7e74",
-    "dailyCalorie": -31.02999999999997,
-    "dailyCarbohydrate": -32.5545,
-    "dailySugar": -18,
-    "dailyFat": 236.5940000000001,
-    "dailyProtein": -45,
+    "dailyCalorie": 1642.97,
+    "dailyCarbohydrate": 246.4455,
+    "dailySugar": 50,
+    "dailyFat": 328.5940000000001,
+    "dailyProtein": 64,
     "createdAt": "2024-06-14T08:20:16.342Z",
-    "updatedAt": "2024-06-16T09:35:12.119Z"
+    "updatedAt": "2024-06-17T04:15:36.082Z"
   }
-}
 ```
 
 
