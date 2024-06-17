@@ -38,6 +38,8 @@ const login = async (email, password, res) => {
 
     const token = tokenService.generateToken(user)
     
+    res.setHeader('Authorization', `Bearer ${token}`)
+
     return user 
 }
 
