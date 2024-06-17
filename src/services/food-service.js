@@ -53,7 +53,7 @@ const calorieTracker = async (body) => {
             inlineData
         }
 
-        const prompt = `Berdasarkan analisis gambar analisis nilai dibawah ini dengan nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll). Jika ada yang tidak punya nilai isi dengan 0, kirim response dalam format json dibawah ini
+        const prompt = `Berdasarkan analisis gambar, analisis nilai dibawah ini dengan nilai tetap (tanpa menggunakan rentang) dan tanpa menggunakan satuan (misalnya gram, kkal, dll). Jika ada yang tidak punya nilai isi dengan 0, kirim response dalam format json dibawah ini
         {
             "foodName": "{food_name}",
             "calorie": "{calorie_count_kkal}",

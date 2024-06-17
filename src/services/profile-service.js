@@ -13,6 +13,7 @@ const getProfile = async () => {
 const createProfile = async (userBody) => {
 
     try {
+        userBody.userId = 'd5790195-555d-42f1-807d-9752667e7fc2'
         const profile = await prisma.userProfile.create({
             data: userBody
         })  
