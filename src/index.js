@@ -8,4 +8,3 @@ if(prisma){
         console.log(`listening to port ${port}`)
     })
 }
-
