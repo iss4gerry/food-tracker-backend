@@ -191,7 +191,7 @@ const getDailyNutrition = async (userId) => {
         return newNutrition
 
     }
-
+ 
     return nutrition
 }
 
