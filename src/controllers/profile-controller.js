@@ -23,7 +23,7 @@ const createProfile = catchAsync(async (req, res) => {
 })
 
 const getProfileById = catchAsync(async (req, res) => {
-    const result = await profileService.getProfileById(req.params.profilId)
+    const result = await profileService.getProfileById(req.params.userId)
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,

@@ -234,7 +234,7 @@ base64Image       (string, required)
     "updatedAt": "2024-06-16T09:35:12.119Z"
   }
 ```
-**Get Total Nutrition -> GET /food/nutrition/:userId**
+**Get Total Nutrition -> GET /profile/nutrition/:userId**
 ```JSON
 {
     "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
