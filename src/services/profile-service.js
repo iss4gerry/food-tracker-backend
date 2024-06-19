@@ -80,7 +80,7 @@ const updateProfile = async (userId, data) => {
         const fat = 0.2 * calories
         const carbohydrate = (0.6 * calories)/4
         const sugar = 50
-
+ 
         const newNutrition = await prisma.nutrition.update({
             where: {
                 userId: userId
