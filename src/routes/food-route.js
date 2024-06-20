@@ -10,6 +10,9 @@ router
     .route('/nutrition/:userId').get(foodController.getDailyNutrition)
 
 router
+    .route('/nutrition/progress/:userId').get(foodController.getProgressNutrition)
+
+router
     .route('/history').get(foodController.getAllHistory)
 
 router

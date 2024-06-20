@@ -32,12 +32,11 @@ const calculateDailyNutrition = (user) => {
 
 const calculateTotalNutrition = (user, nutritionLeft) => {
   const dailyNutrition = calculateDailyNutrition(user)
-
-  const totalCalories = dailyNutrition.calories - nutritionLeft.dailyCalorie
-  const totalCarbohydrate = dailyNutrition.carbohydrate - nutritionLeft.dailyCarbohydrate
-  const totalProtein = dailyNutrition.proteins - nutritionLeft.dailyProtein
-  const totalFat = dailyNutrition.fat - nutritionLeft.dailyFat
-  const totalSugar = dailyNutrition.sugar - nutritionLeft.dailySugar
+  const totalCalories = Math.round(dailyNutrition.calories - nutritionLeft.dailyCalorie)
+  const totalCarbohydrate = Math.round(dailyNutrition.carbohydrate - nutritionLeft.dailyCarbohydrate)
+  const totalProtein = Math.round(dailyNutrition.proteins - nutritionLeft.dailyProtein)
+  const totalFat = Math.round(dailyNutrition.fat - nutritionLeft.dailyFat)
+  const totalSugar = Math.round(dailyNutrition.sugar - nutritionLeft.dailySugar)
 
   return {
     totalCalories,

@@ -195,10 +195,26 @@ const getDailyNutrition = async (userId) => {
     return nutrition
 }
 
+const getProgressNutrition = async (userId) => {
+    const user = await prisma.userProfile.findFirst({
+        where: { userId: userId }
+    })
+
+    const nutritionLeft = await prisma.nutrition.findFirst({
+        where: {
+            userId: userId
+        }
+    })
+
+    return calculateTotalNutrition(user, nutritionLeft)
+
+}
+
 module.exports = {
     calorieTracker,
     imageTracker,
     getAllHistory,
     getHistoryByUserId,
-    getDailyNutrition
+    getDailyNutrition,
+    getProgressNutrition
 }
