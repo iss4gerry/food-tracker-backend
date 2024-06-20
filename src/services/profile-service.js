@@ -52,7 +52,15 @@ const createProfile = async (userBody) => {
 
 const getProfileById = async (userId) => {
     const result = await prisma.userProfile.findFirst({
-        where: { userId: userId }
+        where: { userId: userId },
+        include: {
+            user:{
+                select: {
+                    name: true,
+                    email: true
+                }
+            }
+        }
     })
 
     if(!result){

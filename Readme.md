@@ -157,15 +157,19 @@ base64Image       (string, required)
   "status": 200,
   "message": "Success",
   "data": {
-    "id": "bca8139d-b46f-4313-91cb-41c256868380",
-    "userId": "7c143809-047a-4dba-9cea-67a023b4c4e3",
+    "id": "9e7746fe-adbf-4937-b320-51fb628f597c",
+    "userId": "d5790195-555d-42f1-807d-9752667e7fc2",
     "gender": "male",
     "dateOfBirth": "2003-12-20",
-    "allergies": "udang",
+    "allergies": "",
     "weight": 57,
     "height": 170,
-    "createdAt": "2024-06-08T03:32:59.060Z",
-    "updatedAt": "2024-06-08T03:32:59.060Z"
+    "createdAt": "2024-06-17T06:40:52.916Z",
+    "updatedAt": "2024-06-17T06:40:52.916Z",
+    "user": {
+      "name": "gerry",
+      "email": "gerry"
+    }
   }
 }
 ```
