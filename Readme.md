@@ -22,7 +22,7 @@ User Login: `POST /auth/login`
 **- Profile Route** \
 Get Profile                  : `GET profile/`\
 Create Profile               : `POST profile/`\
-Get Profile By ID            : `POST profile/:profileId`\
+Get Profile By ID            : `GET profile/:profileId`\
 Update Profile By ID         : `PATCH profile/:profileId`\
 Delete Profile By ID         : `DELETE profile/:profileId`\
 Get Total Nutrition Needed   : `GET profile/nutrition/:userId`\
