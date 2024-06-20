@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync")
 const foodService = require('../services/food-service')
 
 const calorieTracker = catchAsync(async (req, res) => {
-    const result = await foodService.calorieTracker(req.body)
+    const result = await foodService.calorieTracker(req.params.userId, req.body)
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,

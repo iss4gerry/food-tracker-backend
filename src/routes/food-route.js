@@ -4,10 +4,7 @@ const auth  = require('../middlewares/auth')
 const foodController = require('../controllers/food-controllers')
 
 router
-    .route('/nutrition').patch(foodController.calorieTracker)
-
-router
-    .route('/nutrition/:userId').get(foodController.getDailyNutrition)
+    .route('/nutrition/:userId').patch(foodController.calorieTracker).get(foodController.getDailyNutrition)
 
 router
     .route('/nutrition/progress/:userId').get(foodController.getProgressNutrition)

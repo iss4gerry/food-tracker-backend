@@ -8,10 +8,8 @@ const { GoogleGenerativeAI } = require('@google/generative-ai')
 const apiKey = 'AIzaSyB-PK8sGS-wximsCuYSAkFwPTfmPsirGZk'
 const genAI = new GoogleGenerativeAI(apiKey)
 
-const calorieTracker = async (body) => {
+const calorieTracker = async (userId, body) => {
     try {
-        
-        const userId = "d5790195-555d-42f1-807d-9752667e7fc2"
 
         const nutrition = await prisma.nutrition.findFirst({
             where: { userId: userId }
