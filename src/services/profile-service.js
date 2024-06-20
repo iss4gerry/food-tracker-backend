@@ -117,7 +117,8 @@ const getTotalNutrition = async (userId) => {
         where: { userId: userId }
     })
 
-    return calculateDailyNutrition(user)
+    const result = calculateDailyNutrition(user)
+    return result
 }
 
 module.exports = {
