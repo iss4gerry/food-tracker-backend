@@ -28,7 +28,7 @@ Delete Profile By ID         : `DELETE profile/:profileId`\
 Get Total Nutrition Needed   : `GET profile/nutrition/:userId`\
 
 **- Food Route** \
-Nutrition Tracker            : `POST /food/nutrition`\
+Nutrition Tracker            : `PATCH /food/nutrition/:userId`\
 Get History                  : `GET /food/history/`\
 Get User History             : `GET /food/history/:userId`\
 Get Daily Nutrition Left     : `GET /food/nutrition/:userId`\
