@@ -32,6 +32,7 @@ Nutrition Tracker            : `POST /food/nutrition`\
 Get History                  : `GET /food/history/`\
 Get User History             : `GET /food/history/:userId`\
 Get Daily Nutrition Left     : `GET /food/nutrition/:userId`\
+Get Progress Nutrition       : `GET /food/nutrition/progress/:userId`\
 
 ## Input in Each Route
 **- Login Route**
@@ -251,6 +252,20 @@ base64Image       (string, required)
     "createdAt": "2024-06-14T08:20:16.342Z",
     "updatedAt": "2024-06-17T04:15:36.082Z"
   }
+```
+**Get Progress Nutrition -> GET /food/nutrition/progress/:userId**
+```JSON
+{
+  "status": 200,
+  "message": "Success",
+  "data": {
+    "totalCalories": 0,
+    "totalCarbohydrate": 0,
+    "totalProtein": 0,
+    "totalFat": 0,
+    "totalSugar": 0
+  }
+}
 ```
 
 
