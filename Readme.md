@@ -31,6 +31,7 @@ Get Total Nutrition Needed   : `GET profile/nutrition/:userId`\
 Nutrition Tracker            : `PATCH /food/nutrition/:userId`\
 Get History                  : `GET /food/history/`\
 Get User History             : `GET /food/history/:userId`\
+Delete User History          : `DELETE /food/history/:userId`\
 Get Daily Nutrition Left     : `GET /food/nutrition/:userId`\
 Get Progress Nutrition       : `GET /food/nutrition/progress/:userId`\
 
@@ -267,6 +268,15 @@ base64Image       (string, required)
   }
 }
 ```
-
+**Delete Food History -> Delete /food/history/:userId**
+```JSON
+{
+  "status": 200,
+  "message": "Success",
+  "data": {
+    "count": 35
+  }
+}
+```
 
 
