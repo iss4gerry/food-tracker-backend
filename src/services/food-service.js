@@ -1,7 +1,7 @@
 const httpStatus = require("http-status")
 const profileService = require('../services/profile-service')
 const { calculateAge, parseDateString } = require('../utils/dateUtils')
-const { calculateCalories, calculateTotalNutrition } = require('../utils/calorieCalculator')
+const { calculateCalories, calculateTotalNutrition, calculateDailyNutrition } = require('../utils/calorieCalculator')
 const prisma = require("../../prisma")
 const ApiError = require("../utils/apiError")
 const { GoogleGenerativeAI } = require('@google/generative-ai')
@@ -165,13 +165,36 @@ const getProgressNutrition = async (userId) => {
         where: { userId: userId }
     })
 
-    const nutritionLeft = await prisma.nutrition.findFirst({
+    const nutrition = await prisma.nutrition.findFirst({
         where: {
             userId: userId
         }
     })
 
-    return calculateTotalNutrition(user, nutritionLeft)
+    const update = parseDateString(nutrition.updatedAt)
+    const today = parseDateString(new Date())
+
+    if(update !== today){
+        
+        const newNutrition = calculateDailyNutrition(user)
+
+        const updatedNutrition = await prisma.nutrition.update({
+            where: {
+                userId: userId
+            },
+            data: {
+                dailyCalorie: newNutrition.calories,
+                dailyCarbohydrate: newNutrition.carbohydrate,
+                dailySugar: newNutrition.sugar,
+                dailyFat: newNutrition.fat,
+                dailyProtein: newNutrition.proteins
+            }
+        })
+
+        return calculateTotalNutrition(user, updatedNutrition)
+    }
+
+    return calculateTotalNutrition(user, nutrition)
 
 }
 
