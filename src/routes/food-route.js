@@ -13,7 +13,7 @@ router
     .route('/history').get(foodController.getAllHistory)
 
 router
-    .route('/history/:userId').get(foodController.getHistoryByUserId)
+    .route('/history/:userId').get(foodController.getHistoryByUserId).delete(foodController.deleteAllHistory)
     
 module.exports = router
 

@@ -175,11 +175,21 @@ const getProgressNutrition = async (userId) => {
 
 }
 
+const deleteAllHistory = async (userId) => {
+    const result = await prisma.history.deleteMany({
+        where: {
+            userId: userId
+        }
+    })
+
+    return result
+}
+
 module.exports = {
     calorieTracker,
     imageTracker,
     getAllHistory,
     getHistoryByUserId,
     getDailyNutrition,
-    getProgressNutrition
+    deleteAllHistory
 }

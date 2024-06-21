@@ -45,7 +45,7 @@ password          (string, required)
 ```
 name              (string, required)
 email             (unique, email format, required)
-passowrd          (string, required)
+password          (string, required)
 ```
 
 **- Profile Route**

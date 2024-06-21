@@ -62,11 +62,22 @@ const getProgressNutrition = catchAsync(async (req, res) => {
     })
 })
 
+const deleteAllHistory = catchAsync(async (req, res) => {
+    const result = await foodService.deleteAllHistory(req.params.userId)
+
+    res.status(httpStatus.OK).send({
+        status: httpStatus.OK,
+        message: 'Success',
+        data: result
+    })
+})
+
 module.exports = { 
     calorieTracker,
     imageTracker,
     getAllHistory,
     getHistoryByUserId,
     getDailyNutrition,
-    getProgressNutrition
+    getProgressNutrition,
+    deleteAllHistory
 }
