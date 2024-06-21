@@ -7,7 +7,7 @@ const register = catchAsync(async (req, res) => {
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,
-        message:  'Success',
+        message: 'Success',
         data: result
     })
 })
@@ -17,7 +17,7 @@ const login = catchAsync(async (req, res) => {
 
     res.status(httpStatus.OK).send({
         status: httpStatus.OK,
-        message:  'Success',
+        message: 'Success',
         data: result
     })
 })
