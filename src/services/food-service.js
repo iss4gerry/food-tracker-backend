@@ -190,6 +190,7 @@ module.exports = {
     imageTracker,
     getAllHistory,
     getHistoryByUserId,
+    getProgressNutrition,
     getDailyNutrition,
     deleteAllHistory
 }
