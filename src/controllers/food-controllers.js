@@ -31,7 +31,7 @@ const getAllHistory = catchAsync(async (req, res) => {
         data: result
     })
 })
- 
+
 const getHistoryByUserId = catchAsync(async (req, res) => {
     const result = await foodService.getHistoryByUserId(req.params.userId)
 
