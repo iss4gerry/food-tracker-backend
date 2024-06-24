@@ -132,7 +132,6 @@ const imageTracker = async (body) => {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
     const prompt = "What's picture is this?"
 
-    console.log(data)
     const result = await model.generateContent([prompt, data])
     const response = await result.response
     const text = response.text()
