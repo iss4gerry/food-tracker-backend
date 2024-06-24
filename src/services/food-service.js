@@ -10,15 +10,13 @@ const genAI = new GoogleGenerativeAI(apiKey)
 
 const calorieTracker = async (userId, body) => {
     try {
-
         const nutrition = await prisma.nutrition.findFirst({
             where: { userId: userId }
         }) 
-    
         const update = parseDateString(nutrition.updatedAt)
         const today = parseDateString(new Date())
     
-        if(update.toISOString() !== today.toISOString()){
+        if(update !== today){
             const userProfile = await prisma.userProfile.findFirst({
                 where: { userId: userId}
             })
@@ -117,10 +115,11 @@ const calorieTracker = async (userId, body) => {
                     foodInfo: foodInfo,
                     totalNutrition: calculateTotalNutrition(userProfile, updateNutrition),
                 }
-                console.log(resultData)
+                
                 return resultData
             }
         } catch (error) {
+            console.log(error)
             throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error processing your image, Please try again')
         }
  
@@ -173,7 +172,6 @@ const getProgressNutrition = async (userId) => {
 
     const update = parseDateString(nutrition.updatedAt)
     const today = parseDateString(new Date())
-    console.log(update === today)
 
     if(update !== today){
         
