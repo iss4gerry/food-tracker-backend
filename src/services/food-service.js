@@ -173,6 +173,7 @@ const getProgressNutrition = async (userId) => {
 
     const update = parseDateString(nutrition.updatedAt)
     const today = parseDateString(new Date())
+    console.log(update === today)
 
     if(update !== today){
         
@@ -190,7 +191,6 @@ const getProgressNutrition = async (userId) => {
                 dailyProtein: newNutrition.proteins
             }
         })
-
         return calculateTotalNutrition(user, updatedNutrition)
     }
 

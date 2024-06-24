@@ -15,7 +15,7 @@ const calculateAge = (dateOfBirth) => {
 function parseDateString(dateString) {
   const date = new Date(dateString)
   
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+  return date.getMonth(), date.getDate()
 } 
 
 module.exports = { 
