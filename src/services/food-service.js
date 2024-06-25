@@ -205,6 +205,45 @@ const deleteAllHistory = async (userId) => {
     return result
 }
 
+const foodRecommendation = async (userId) => {
+    const user = await prisma.userProfile.findFirst({
+        where: {
+            userId: userId
+        }
+    })
+
+    if(!user){
+        throw new ApiError(httpStatus.BAD_REQUEST, 'User not found')
+    }
+
+    const nutritionLeft = await getDailyNutrition(userId)
+
+    const { allergies } = user
+
+    if(allergies === null) {
+        allergies = 'tidak punya'
+    }
+
+    const { dailyCalorie, dailyCarbohydrate, dailyFat, dailyProtein, dailySugar } = nutritionLeft
+
+    const prompt = `rekomendasikan saya makanan jika berikut adalah sisa kebutuhan harian saya 
+    kalori: ${dailyCalorie},
+    karbohidrat: ${dailyCarbohydrate},
+    lemak: ${dailyFat},
+    protein: ${dailyProtein},
+    batas gula harian : ${dailySugar},
+    saya memiliki alergi ${allergies}
+    `
+
+    const genAI = new GoogleGenerativeAI(apiKey)
+    const model = genAI.getGenerativeModel({ model: "gemini-pro"})
+
+    const result = await model.generateContent(prompt)
+    console.log(nutritionLeft)
+    console.log(prompt)
+    console.log(result)
+}
+
 module.exports = {
     calorieTracker,
     imageTracker,
