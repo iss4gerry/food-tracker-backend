@@ -242,6 +242,7 @@ const foodRecommendation = async (userId) => {
     console.log(nutritionLeft)
     console.log(prompt)
     console.log(result)
+    return result
 }
 
 module.exports = {
@@ -251,5 +252,6 @@ module.exports = {
     getHistoryByUserId,
     getProgressNutrition,
     getDailyNutrition,
-    deleteAllHistory
+    deleteAllHistory,
+    foodRecommendation
 }
