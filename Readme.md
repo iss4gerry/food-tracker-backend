@@ -20,7 +20,7 @@ User Register: `POST /auth/register`\
 User Login: `POST /auth/login`
 
 **- Profile Route** \
-Get Profile                  : `GET profile/`\
+Get All Profile                  : `GET profile/`\
 Create Profile               : `POST profile/`\
 Get Profile By ID            : `GET profile/:profileId`\
 Update Profile By ID         : `PATCH profile/:profileId`\
@@ -34,6 +34,7 @@ Get User History             : `GET /food/history/:userId`\
 Delete User History          : `DELETE /food/history/:userId`\
 Get Daily Nutrition Left     : `GET /food/nutrition/:userId`\
 Get Progress Nutrition       : `GET /food/nutrition/progress/:userId`\
+Get Food Recommendation      : `Get /food/recommendation/:userId`\
 
 ## Input in Each Route
 **- Login Route**
@@ -133,7 +134,7 @@ base64Image       (string, required)
 }
 ```
 
-**Get Profile -> GET /profile/**
+**Get All Profile -> GET /profile/**
 ```json
 {
   "status": 200,
@@ -209,6 +210,9 @@ base64Image       (string, required)
 **Image Tracker -> PUT /food/nutrition**
 ```JSON
 {
+  "status": 200,
+  "message": "Success",
+  "data": {
       "foodInfo": {
           "foodName": "Salad Sayuran",
           "calorie": 124,
@@ -225,10 +229,16 @@ base64Image       (string, required)
           "totalSugar": 68
       }
   }
+}
+"
+
 ```
 **Daily Nutrition Left -> GET /food/nutrition/:userId**
 ```JSON
 {
+  "status": 200,
+  "message": "Success",
+  "data": {
     "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
     "userId": "ea64b167-325b-49ed-9fea-fc920a1e7e74",
     "dailyCalorie": -31.02999999999997,
@@ -239,10 +249,15 @@ base64Image       (string, required)
     "createdAt": "2024-06-14T08:20:16.342Z",
     "updatedAt": "2024-06-16T09:35:12.119Z"
   }
+}
+
 ```
 **Get Total Nutrition -> GET /profile/nutrition/:userId**
 ```JSON
 {
+  "status": 200,
+  "message": "Success",
+  "data": {
     "id": "a56c8dc2-7014-465f-9251-b65d2d46c2b1",
     "userId": "ea64b167-325b-49ed-9fea-fc920a1e7e74",
     "dailyCalorie": 1642.97,
@@ -253,6 +268,8 @@ base64Image       (string, required)
     "createdAt": "2024-06-14T08:20:16.342Z",
     "updatedAt": "2024-06-17T04:15:36.082Z"
   }
+}
+
 ```
 **Get Progress Nutrition -> GET /food/nutrition/progress/:userId**
 ```JSON
@@ -265,6 +282,27 @@ base64Image       (string, required)
     "totalProtein": 0,
     "totalFat": 0,
     "totalSugar": 0
+  }
+}
+```
+**Get Food Recommendation -> GET /food/recommentaion/:userId**
+```JSON
+{
+  "status": 200,
+  "message": "Success",
+  "data": {
+    "food1": {
+      "foodName": "Kentang Manis Panggang",
+      "information": "Kentang manis panggang kaya akan serat, vitamin A, dan antioksidan, menjadikannya makanan yang mengenyangkan dan menyehatkan dengan 99 kalori, 22 gram karbohidrat, 0 gram lemak, dan 1,6 gram protein."
+    },
+    "food2": {
+      "foodName": "Ayam Panggang",
+      "information": "Ayam panggang tanpa kulit merupakan sumber protein yang sangat baik dengan 165 kalori, 0 gram karbohidrat, 21 gram lemak, dan 25 gram protein. Ini dapat membantu Anda merasa kenyang dan puas."
+    },
+    "food3": {
+      "foodName": "Brokoli Kukus",
+      "information": "Brokoli kukus adalah sayuran rendah kalori dan kaya nutrisi dengan 30 kalori, 6 gram karbohidrat, 0 gram lemak, dan 2,6 gram protein. Ini juga merupakan sumber vitamin C, serat, dan antioksidan."
+    }
   }
 }
 ```
