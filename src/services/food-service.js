@@ -218,31 +218,45 @@ const foodRecommendation = async (userId) => {
 
     const nutritionLeft = await getDailyNutrition(userId)
 
-    const { allergies } = user
+    let { allergies } = user
 
-    if(allergies === null) {
+    if(allergies !== null) {
         allergies = 'tidak punya'
     }
 
     const { dailyCalorie, dailyCarbohydrate, dailyFat, dailyProtein, dailySugar } = nutritionLeft
 
-    const prompt = `rekomendasikan saya makanan jika berikut adalah sisa kebutuhan harian saya 
+    const prompt = ` saya memiliki alergi ${allergies}, rekomendasikan saya 3 makanan jika berikut adalah sisa kebutuhan harian saya 
     kalori: ${dailyCalorie},
     karbohidrat: ${dailyCarbohydrate},
     lemak: ${dailyFat},
     protein: ${dailyProtein},
     batas gula harian : ${dailySugar},
-    saya memiliki alergi ${allergies}
+    kirim response dalam format json dibawah ini
+    {
+    "food1": {
+        "foodName": "{makanan}",
+        "information": "{keterangan}"
+    },
+    "food2": {
+        "foodName": "{makanan}",
+        "information": "{keterangan}"
+    },
+    "food3": {
+        "foodName": "{makanan}",
+        "information": "{keterangan}"
+    }
+}
     `
 
     const genAI = new GoogleGenerativeAI(apiKey)
     const model = genAI.getGenerativeModel({ model: "gemini-pro"})
 
     const result = await model.generateContent(prompt)
-    console.log(nutritionLeft)
-    console.log(prompt)
-    console.log(result)
-    return result
+    const response = await result.response
+    const text = response.text()
+    const stringResponse = JSON.parse(text)
+    return stringResponse
 }
 
 module.exports = {
