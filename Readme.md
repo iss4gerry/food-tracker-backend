@@ -20,7 +20,7 @@ User Register: `POST /auth/register`\
 User Login: `POST /auth/login`
 
 **- Profile Route** \
-Get All Profile                  : `GET profile/`\
+Get All Profile              : `GET profile/`\
 Create Profile               : `POST profile/`\
 Get Profile By ID            : `GET profile/:profileId`\
 Update Profile By ID         : `PATCH profile/:profileId`\
