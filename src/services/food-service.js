@@ -79,7 +79,7 @@ const calorieTracker = async (userId, body) => {
                     data: {
                         userId: userId,
                         foodName: foodName,
-                        todalCalorie: calorie,
+                        totalCalorie: calorie,
                         totalCarbohydrate: carbohydrate,
                         totalFat: fat,
                         totalProtein: protein,
