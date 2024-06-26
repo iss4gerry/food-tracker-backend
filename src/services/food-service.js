@@ -154,8 +154,37 @@ const getDailyNutrition = async (userId) => {
     const nutrition = await prisma.nutrition.findFirst({
         where: { userId: userId }
     }) 
- 
+
+    const update = parseDateString(nutrition.updatedAt)
+    const today = parseDateString(new Date())
+    
+    if(update !== today){
+        const userProfile = await prisma.userProfile.findFirst({
+            where: { userId: userId}
+        })
+    
+        const { dateOfBirth, gender, weight, height } = userProfile
+        const age = calculateAge(dateOfBirth)
+        const calories = calculateCalories(gender, weight, height, age)
+    
+        const nutrition = await prisma.nutrition.update({
+            where: {
+                userId: userId
+            },
+            data: {
+                dailyCalorie: calories,
+                dailyCarbohydrate: 0.15 * calories,
+                dailySugar: 50,
+                dailyFat: 0.2 * calories,
+                dailyProtein: weight * 0.8
+            }
+        })
+
+        return nutrition
+    }
+
     return nutrition
+
 }
 
 const getProgressNutrition = async (userId) => {
