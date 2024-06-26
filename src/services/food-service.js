@@ -5,7 +5,7 @@ const { calculateCalories, calculateTotalNutrition, calculateDailyNutrition } = 
 const prisma = require("../../prisma")
 const ApiError = require("../utils/apiError")
 const { GoogleGenerativeAI } = require('@google/generative-ai')
-const apiKey = 'AIzaSyB-PK8sGS-wximsCuYSAkFwPTfmPsirGZk'
+const apiKey = 'AIzaSyAVVvzkYMOoc9YrTY6N-UgN2B3kV7OQLNI'
 const genAI = new GoogleGenerativeAI(apiKey)
 
 const calorieTracker = async (userId, body) => {
@@ -256,6 +256,7 @@ const foodRecommendation = async (userId) => {
     const response = await result.response
     const text = response.text()
     const stringResponse = JSON.parse(text)
+    console.log(nutritionLeft)
     return stringResponse
 }
 

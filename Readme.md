@@ -37,7 +37,7 @@ Get Progress Nutrition       : `GET /food/nutrition/progress/:userId`\
 Get Food Recommendation      : `Get /food/recommendation/:userId`\
 
 ## Input in Each Route
-**- Login Route**
+**-Login Route**
 ```
 email             (unique, email format, required)
 password          (string, required)
