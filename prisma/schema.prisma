@@ -33,7 +33,7 @@ model UserProfile {
   user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   gender            String
   dateOfBirth       String       
-  allergies         String?       @default(null)     
+  allergies         String?       @default("no")     
   weight            Float
   height            Float
   createdAt         DateTime      @default(now())
