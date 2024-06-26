@@ -58,12 +58,10 @@ model History {
   userId                 String
   user                   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   foodName               String
-  todalCalorie           Float
+  totalCalorie           Float
   totalCarbohydrate      Float
   totalSugar             Float
   totalFat               Float
   totalProtein           Float
   date                   DateTime     @default(now())
 }
-
-
