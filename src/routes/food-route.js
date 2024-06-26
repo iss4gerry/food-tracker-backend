@@ -16,7 +16,7 @@ router
     .route('/history/:userId').get(foodController.getHistoryByUserId).delete(foodController.deleteAllHistory)
 
 router
-    .route('/recommendation/:userId').post(foodController.foodRecommendation)
+    .route('/recommendation/:userId').get(foodController.foodRecommendation)
     
 module.exports = router
 
